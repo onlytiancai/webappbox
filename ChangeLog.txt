@@ -1,0 +1,9 @@
+# webappbox changelog
+
+## 2012-12-27
+* new: 新增登录app
+* new: 增加SAE的支持
+
+## 2012-11-21 0.1
+
+* First public version.
