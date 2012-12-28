@@ -14,7 +14,7 @@ class login(object):
     def POST(self):
         postdata = web.input()
         username = postdata.username
-        nickname = postdata.nickname
+        nickname = postdata.username
         password = postdata.password
         password = hashlib.sha1(password).hexdigest()
 
