@@ -3,7 +3,8 @@
 import web
 import hashlib
 import json
-from . import account as account
+from . import account
+from . import qqlogin
 
 
 app_jslink = '<script src="/static/sea-modules/seajs/1.3.0/sea-debug.js" data-main="/login/static/login-main"></script>'
@@ -19,7 +20,7 @@ class login(object):
         password = hashlib.sha1(password).hexdigest()
 
         if account.account_exists(username):
-            result = account.login(username, password)
+            result = account.login(username=username, password=password, nickname=nickname)
         else:
             result = account.register_account(username, password, nickname)
         return json.dumps(result)
@@ -42,7 +43,9 @@ class userinfo(object):
 
 urls = ["/login", login,
         "/logout", logout,
-        "/userinfo", userinfo
+        "/userinfo", userinfo,
+        "/qqlogin", qqlogin.qqlogin,
+        "/qqcallback", qqlogin.qqcallback,
         ]
 
 

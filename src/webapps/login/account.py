@@ -95,12 +95,12 @@ class LoginException(Exception):
     pass
 
 
-def _save_session(username, usertype):
+def _save_session(username, nickname, usertype):
     '''保存session'''
     sessionid = str(uuid.uuid1())
     web.setcookie('sessionid', sessionid, 60 * 60 * 24 * 365)
-    web.setcookie('username', username, 60 * 60 * 24 * 365)
-    _setsession(sessionid, dict(username=username, usertype=usertype))
+    web.setcookie('nickname', nickname, 60 * 60 * 24 * 365)
+    _setsession(sessionid, dict(username=username, nickname=nickname, usertype=usertype))
 
 
 def _check_session():
@@ -122,19 +122,26 @@ def account_exists(username, usertype='me'):
 def register_account(username, password, nickname, usertype='me'):
     '''注册新账户'''
     _createaccount(username=username, usertype=usertype, nickname=nickname, password=password)
-    _save_session(username, usertype=usertype)
+    _save_session(username=username, nickname=nickname, usertype=usertype)
     return dict(code=200, message='register ok')
 
 
-def login(username, password, usertype='me'):
+def login(username, password, nickname):
     '''登录'''
+    usertype = 'me'
     account = _getaccount(username, usertype)
     if account.password != password:
         return dict(code=401, message='password invalid')
-    else:
-        _touchaccount(username, usertype)
-        _save_session(username, usertype)
-        return dict(code=200, message='login ok')
+
+    _touchaccount(username, usertype)
+    _save_session(username=username, nickname=nickname, usertype=usertype)
+    return dict(code=200, message='login ok')
+
+
+def oauth_login(username, nickname, usertype):
+    _touchaccount(username, usertype)
+    _save_session(username=username, nickname=nickname, usertype=usertype)
+    return dict(code=200, message='login ok')
 
 
 def logout():
@@ -165,6 +172,7 @@ def get_userinfo():
     try:
         sessionid, username, usertype = _check_session()
         userinfo = _getaccount(username, usertype)
+        userinfo.password = ''  # 防止密码被下发到客户端
         return dict(code=200, message='ok', data=userinfo.as_dict())
     except LoginException, le:
         return dict(code=400, message=le.message)

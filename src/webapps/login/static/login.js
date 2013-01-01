@@ -6,7 +6,7 @@ $(function(){
             y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
             x=x.replace(/^\s+|\s+$/g,"");
             if (x==c_name) {
-                return unescape(y);
+                return decodeURI(y);
             }
         }
     }
@@ -14,6 +14,6 @@ $(function(){
     if (getCookie("sessionid") == undefined){
         $('.navbar .nav-pills').append("<li><a href='/login/index.html'>登录</a></li>");
     }else {
-        $('.navbar .nav-pills').append("<li><a href='/login/index.html'>"+getCookie("username")+"</a></li>");
+        $('.navbar .nav-pills').append("<li><a href='/login/index.html'>"+getCookie("nickname")+"</a></li>");
     }
 });
