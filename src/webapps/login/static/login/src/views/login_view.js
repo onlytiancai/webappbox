@@ -36,7 +36,7 @@ define(function(require, exports, module) {
                 data: $('.form-signin').serializeArray(),
                 success: function(result){
                     if (result.code == 200) {
-                        location.reload();
+                        location.href = '/';
                     }else{
                         showmessage([result.code, ':', result.message].join(''));
                     }

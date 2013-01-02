@@ -58,7 +58,7 @@ class weibocallback(object):
             nickname = self.get_nickname(access_token, uid)
 
             if account.account_exists(username=uid, usertype='weibo'):
-                result = account.oauth_login(username=uid, nickname=nickname, usertype='weibo')
+                result = account.direct_login(username=uid, nickname=nickname, usertype='weibo')
             else:
                 result = account.register_account(username=uid, password=None, nickname=nickname, usertype='weibo')
             

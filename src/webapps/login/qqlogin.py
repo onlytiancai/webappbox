@@ -65,7 +65,7 @@ class qqcallback(object):
             nickname = self.get_nickname(access_token, openid)
 
             if account.account_exists(username=openid, usertype='qq'):
-                result = account.oauth_login(username=openid, nickname=nickname, usertype='qq')
+                result = account.direct_login(username=openid, nickname=nickname, usertype='qq')
             else:
                 result = account.register_account(username=openid, password=None, nickname=nickname, usertype='qq')
             

@@ -133,12 +133,9 @@ def login(username, password, nickname):
     if account.password != password:
         return dict(code=401, message='password invalid')
 
-    _touchaccount(username, usertype)
-    _save_session(username=username, nickname=nickname, usertype=usertype)
-    return dict(code=200, message='login ok')
+    return direct_login(username, nickname, usertype)
 
-
-def oauth_login(username, nickname, usertype):
+def direct_login(username, nickname, usertype):
     _touchaccount(username, usertype)
     _save_session(username=username, nickname=nickname, usertype=usertype)
     return dict(code=200, message='login ok')
