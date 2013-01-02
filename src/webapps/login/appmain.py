@@ -5,6 +5,7 @@ import hashlib
 import json
 from . import account
 from . import qqlogin
+from . import weibologin
 
 
 app_jslink = '<script src="/static/sea-modules/seajs/1.3.0/sea-debug.js" data-main="/login/static/login-main"></script>'
@@ -46,6 +47,8 @@ urls = ["/login", login,
         "/userinfo", userinfo,
         "/qqlogin", qqlogin.qqlogin,
         "/qqcallback", qqlogin.qqcallback,
+        "/weibologin", weibologin.weibologin,
+        "/weibocallback", weibologin.weibocallback,
         ]
 
 
