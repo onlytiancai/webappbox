@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+import os
+import pwd
+
+os.setuid(pwd.getpwnam('nobody').pw_uid)
+
 from gevent import monkey
 monkey.patch_all()
 from gevent.pywsgi import WSGIServer
