@@ -6,6 +6,7 @@ import json
 from . import account
 from . import qqlogin
 from . import weibologin
+from . import dnspodlogin
 
 
 app_jslink = '<script src="/static/sea-modules/seajs/1.3.0/sea-debug.js" data-main="/login/static/login-main"></script>'
@@ -49,6 +50,8 @@ urls = ["/login", login,
         "/qqcallback", qqlogin.qqcallback,
         "/weibologin", weibologin.weibologin,
         "/weibocallback", weibologin.weibocallback,
+        "/dnspodlogin", dnspodlogin.dnspodlogin,
+        "/dnspodcallback", dnspodlogin.dnspodcallback,
         ]
 
 

@@ -6,6 +6,10 @@ import logging
 
 
 class OAuth(object):
+    __headers = {"Content-type": "application/x-www-form-urlencoded",
+        "Accept": "text/json",
+        "User-Agent": "onlytiancai oauth/0.0.1 (onlytiancai@gmail.com)"}
+
     def __init__(self, name, client_id, client_secret, base_url, access_token_url, authorize_url):
         self.name = name
         self.client_id = client_id
@@ -15,14 +19,19 @@ class OAuth(object):
         self.authorize_url = authorize_url
 
     def _request(self, method, uri, data):
-        if method == 'GET':
-            uri = uri + '?' + urllib.urlencode(data)
-            response = urllib2.urlopen(uri)
-        else:
-            response = urllib2.urlopen(uri, urllib.urlencode(data))
-        response = response.read()
-        logging.debug('_request:%s [%s]', uri, response)
-        return response
+        try:
+            if method == 'GET':
+                uri = uri + '?' + urllib.urlencode(data)
+                response = urllib2.urlopen(uri)
+            else:
+                request = urllib2.Request(uri, urllib.urlencode(data), headers=self.__headers)
+                response = urllib2.urlopen(request)
+            response = response.read()
+            logging.debug('_request:%s [%s]', uri, response)
+            return response
+        except urllib2.URLError, ue:
+            logging.debug('_request:%s [%s]', uri, ue.read())
+            raise
 
     def get_authorize_url(self, **kargs):
         data = dict(client_id=self.client_id)
