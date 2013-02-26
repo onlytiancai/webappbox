@@ -7,6 +7,7 @@
     <div style="margin:5px;"> 其它方式登陆：
         <a href="qqlogin"><img src="static/qq_connect.png"></a> 
         <a href="weibologin"><img src="static/weibo_connect.png"></a>
+        <a href="dnspodlogin"><img src="static/dnspod_connect.png"></a>
     </div>
     <button class="btn btn-large btn-primary btn-login" type="button">Sign in</button> 
 </form>
